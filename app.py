@@ -1,5 +1,3 @@
-import os
-
 import streamlit as st
 import pandas as pd
 import plotly.express as px
@@ -21,15 +19,15 @@ st.markdown("""
 
 /* Root palette */
 :root {
-    --bg:        #0f0e0c;
-    --surface:   #1a1814;
-    --border:    #2e2b26;
-    --gold:      #c9a84c;
-    --gold-dim:  #8a6f2e;
-    --cream:     #f0e6d0;
-    --muted:     #7a7060;
+    --bg:        #1a0f0a;
+    --surface:   #241508;
+    --border:    #3d2510;
+    --gold:      #c8894a;
+    --gold-dim:  #8a5a2e;
+    --cream:     #f5e6d0;
+    --muted:     #8a6a50;
     --red:       #c94c4c;
-    --green:     #4caf82;
+    --green:     #7ab648;
 }
 
 html, body, [data-testid="stAppViewContainer"] {
@@ -140,9 +138,7 @@ html, body, [data-testid="stAppViewContainer"] {
 # ── Load data ─────────────────────────────────────────────────────────────────
 @st.cache_data
 def load_data():
-    import os
-    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-    df = pd.read_excel(os.path.join(BASE_DIR, "Coffee_Shop_Sales.xlsx"))
+    df = pd.read_excel("Coffee_Shop_Sales.xlsx")
     df["transaction_date"] = pd.to_datetime(df["transaction_date"])
     df["revenue"] = df["transaction_qty"] * df["unit_price"]
     df["month"] = df["transaction_date"].dt.to_period("M").astype(str)
@@ -153,12 +149,12 @@ def load_data():
 df = load_data()
 
 # ── Plotly dark theme ─────────────────────────────────────────────────────────
-COLORS   = ["#c9a84c", "#4caf82", "#6b9fd4", "#c94c4c", "#a06bc9", "#d4946b", "#6bc9c9", "#c9c96b"]
-BG_COLOR = "#0f0e0c"
-SURFACE  = "#1a1814"
-GRID     = "#2e2b26"
-TEXT     = "#f0e6d0"
-MUTED    = "#7a7060"
+COLORS   = ["#c8894a", "#e8c49a", "#8a5a2e", "#f5e6d0", "#6b3a1f", "#d4a574", "#a0724a", "#3d2510"]
+BG_COLOR = "#1a0f0a"
+SURFACE  = "#241508"
+GRID     = "#3d2510"
+TEXT     = "#f5e6d0"
+MUTED    = "#8a6a50"
 
 def dark_layout(fig, title=""):
     fig.update_layout(
@@ -296,7 +292,7 @@ with col2:
         cat_rev, x="revenue", y="product_category",
         orientation="h",
         color="revenue",
-        color_continuous_scale=[[0, "#2e2b26"], [1, "#c9a84c"]],
+        color_continuous_scale=[[0, "#3d2510"], [1, "#c8894a"]],
     )
     fig2.update_layout(
         xaxis_title="Revenue ($)", yaxis_title="",
